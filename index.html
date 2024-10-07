@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Rendimento Diário</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212; /* Fundo escuro */
+            color: #FFFFFF; /* Texto claro */
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #32CD32; /* Verde claro */
+        }
+        input, button {
+            margin: 10px 0;
+            padding: 15px;
+            width: 100%;
+            max-width: 300px;
+            border: 2px solid #32CD32;
+            border-radius: 5px;
+            background-color: #1E1E1E; /* Fundo dos campos */
+            color: #FFFFFF; /* Texto dos campos */
+        }
+        button {
+            cursor: pointer;
+            background-color: #32CD32; /* Verde */
+            color: #000000; /* Texto em preto */
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #28a745; /* Verde mais escuro ao passar o mouse */
+        }
+        table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 400px;
+        }
+        table, th, td {
+            border: 1px solid #32CD32;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #32CD32; /* Cabeçalho verde */
+            color: #000000; /* Texto em preto */
+        }
+        tr:nth-child(even) {
+            background-color: #1E1E1E; /* Linhas pares em fundo escuro */
+        }
+    </style>
+</head>
+<body>
+
+<h1>Gerenciamento MoneyIA</h1>
+
+<label for="banca">Banca Inicial (R$):</label>
+<input type="number" id="banca" placeholder="Ex: 1000" required>
+
+<label for="porcentagem">Porcentagem ao Dia (%):</label>
+<input type="number" id="porcentagem" placeholder="Ex: 1" required>
+
+<button onclick="calcularRendimento()">Calcular</button>
+
+<table id="resultado" style="display: none;">
+    <thead>
+        <tr>
+            <th>Dia</th>
+            <th>Valor (R$)</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+    function calcularRendimento() {
+        const banca = parseFloat(document.getElementById('banca').value);
+        const porcentagem = parseFloat(document.getElementById('porcentagem').value) / 100;
+
+        const tabela = document.getElementById('resultado');
+        const tbody = tabela.querySelector('tbody');
+        tbody.innerHTML = ''; // Limpa resultados anteriores
+
+        for (let dia = 1; dia <= 30; dia++) {
+            const valor = banca * Math.pow((1 + porcentagem), dia);
+            const row = `<tr><td>${dia}</td><td>${valor.toFixed(2)}</td></tr>`;
+            tbody.innerHTML += row;
+        }
+
+        tabela.style.display = 'table'; // Exibe a tabela com resultados
+    }
+</script>
+
+</body>
+</html>
